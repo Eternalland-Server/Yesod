@@ -1,0 +1,113 @@
+# 进入提示
+join-message: ''
+# 退出提示
+quit-message: ''
+# 虚空保护
+void-protect: true
+# 启用物品合成
+allow-craft: true
+# 启用配方补全
+allow-craft-display: true
+# 重做荆棘伤害
+thorn-override: true
+# 禁止命令的路径
+block-command-path:
+  - org.spigotmc
+  - org.bukkit
+  - com.sk89q
+  - com.destroystokyo
+  - co.aikar
+  - com.onarandombox
+  - fr.neatmonster
+# 禁止命令的前缀
+block-command-name:
+  - br
+  - brush
+  - tool
+  - /br
+  - /brush
+  - /
+  - /desel
+  - /deselect
+  - /sel
+  - /toggleplace
+  - ;
+  - list
+  - me
+  - msg
+  - none
+  - region
+  - regions
+  - rg
+  - teammsg
+  - tell
+  - tm
+  - toggleplace
+  - trigger
+  - w
+  - we
+  - worldedit
+# 禁用容器类型
+block-inventory:
+  # 信标
+  - BEACON
+  # 铁砧
+  - ANVIL
+  # 酿造台
+  - BREWING
+  # 工作台
+  - WORKBENCH
+  # 附魔台
+  - ENCHANTING
+  # 熔炉
+  - FURNACE
+# 禁止方块交互（后缀 "?" 判断关键字）
+block-interact:
+  # 活板门
+  - TRAPDOOR?
+  - TRAP_DOOR?
+  # 铁砧
+  - ANVIL?
+  # 音符盒
+  - NOTE_BLOCK
+  # 漏斗
+  - HOPPER
+  # 堆肥桶
+  - COMPOSTER
+  # 末影箱
+  - ENDER_CHEST
+  # 磁石
+  - LODESTONE
+  - TNT
+# 阻止游戏特性
+block-features:
+  # 繁殖
+  - BREED
+  # 树叶消散
+  - LEAVES_DECAY
+  # 生物修改方块
+  - ENTITY_CHANGE_BLOCK
+  # 踩坏农田
+  - FARMLAND_PHYSICAL
+  # 展示物破坏
+  - HANGING_BREAK
+  # 实体爆炸
+  - ENTITY_EXPLODE
+  # 方块爆炸
+  - BLOCK_EXPLODE
+  # 入侵
+  - RAID
+  # 禁止生长
+  - GROW
+  # 禁止蔓延
+  - SPREAD
+# 阻止传送类型
+block-teleport:
+  # 下届传送门
+  - NETHER_PORTAL
+  # 末影珍珠
+  - ENDER_PEARL
+  # 末地折跃门
+  - END_GATEWAY
+  # 末地传送门
+  - END_PORTAL
