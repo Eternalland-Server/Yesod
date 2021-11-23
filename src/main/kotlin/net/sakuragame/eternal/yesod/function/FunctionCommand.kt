@@ -28,19 +28,21 @@ object FunctionCommand {
             }
         }
         command("speed") {
-            execute<Player> { player, _, argument ->
-                if (!player.hasPermission("yesod.speed")) {
-                    player.sendMessage(SpigotConfig.unknownCommandMessage)
-                    return@execute
+            dynamic {
+                execute<Player> { player, _, argument ->
+                    if (!player.hasPermission("yesod.speed")) {
+                        player.sendMessage(SpigotConfig.unknownCommandMessage)
+                        return@execute
+                    }
+                    val speed = argument.toFloatOrNull()
+                    if (speed == null) {
+                        player.sendMessage("您输入的不是一个合法的值.")
+                        return@execute
+                    }
+                    player.walkSpeed = speed
+                    player.flySpeed = speed
+                    player.sendMessage("您设置了您的速度值为: $speed")
                 }
-                val speed = argument.toFloatOrNull()
-                if (speed == null) {
-                    player.sendMessage("您输入的不是一个合法的值.")
-                    return@execute
-                }
-                player.walkSpeed = speed
-                player.flySpeed = speed
-                player.sendMessage("您设置了您的速度值为: $speed")
             }
         }
     }
