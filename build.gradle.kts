@@ -6,6 +6,10 @@ plugins {
 
 taboolib {
     description {
+        dependencies {
+            name("Multiverse-Core")
+        }
+        load("STARTUP")
         contributors {
             name("咸蛋")
         }

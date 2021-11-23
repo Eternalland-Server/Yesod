@@ -1,5 +1,7 @@
 package net.sakuragame.eternal.yesod
 
+import com.onarandombox.MultiverseCore.MultiverseCore
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
@@ -48,11 +50,24 @@ object Yesod : Plugin(), BukkitWorldGenerator {
     lateinit var blockTeleport: List<String>
         private set
 
+    val multiverseCore by lazy {
+        Bukkit.getServer().pluginManager.getPlugin("Multiverse-Core") as MultiverseCore
+    }
+
     fun Entity.bypass(hard: Boolean = false): Boolean {
         return this !is Player || isOp && gameMode == GameMode.CREATIVE && (!hard || isSneaking)
     }
 
     override fun getDefaultWorldGenerator(worldName: String, name: String?): ChunkGenerator {
         return YesodGenerator()
+    }
+
+    override fun onActive() {
+        Bukkit.getWorlds().forEach {
+            it.setGameRuleValue("announceAdvancements", "false")
+            it.setGameRuleValue("keepInventory", "true")
+            it.setGameRuleValue("doDaylightCycle", "false")
+            it.setGameRuleValue("showDeathMessages", "false")
+        }
     }
 }

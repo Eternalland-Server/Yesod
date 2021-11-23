@@ -8,6 +8,8 @@ void-protect: true
 allow-craft: true
 # 启用配方补全
 allow-craft-display: true
+# 伤害保护.
+allow-cancel-damage: true
 # 重做荆棘伤害
 thorn-override: true
 # 禁止命令的路径

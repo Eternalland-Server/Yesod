@@ -2,32 +2,21 @@ package net.sakuragame.eternal.yesod.function
 
 import net.sakuragame.eternal.yesod.Yesod
 import net.sakuragame.eternal.yesod.Yesod.bypass
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.entity.Hanging
 import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
 import org.bukkit.event.block.*
 import org.bukkit.event.entity.*
 import org.bukkit.event.hanging.HangingBreakByEntityEvent
 import org.bukkit.event.hanging.HangingBreakEvent
 import org.bukkit.event.player.*
 import org.bukkit.util.Vector
-import taboolib.common.platform.command.command
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.attacker
 
 object FunctionWorld {
-
-    init {
-        command("setSpawnLocation", permission = "admin") {
-            execute<Player> { sender, _, _ ->
-                val loc = sender.location.clone()
-                sender.world.setSpawnLocation(loc.blockX, loc.blockY, loc.blockZ)
-                sender.sendMessage("世界${sender.world.name}的出生点已被重设在${loc.x},${loc.y},${loc.z}(${loc.yaw},${loc.pitch})")
-            }
-        }
-    }
 
     @SubscribeEvent
     fun e(e: PlayerJoinEvent) {
@@ -140,14 +129,15 @@ object FunctionWorld {
 
     @SubscribeEvent
     fun e(e: PlayerMoveEvent) {
+        if (e.player.world.name != "world") return
         val to = e.to!!
         if (e.from.x != to.x || e.from.y != to.y || e.from.z != to.z) {
-            if (to.y < 10 && Yesod.voidProtect) {
+            if (to.y < 10 && Yesod.voidProtect && e.player.gameMode != GameMode.CREATIVE) {
                 e.isCancelled = true
                 // 返回大厅
                 submit {
                     e.player.velocity = Vector(0, 0, 0)
-                    e.player.teleport(e.player.world.spawnLocation)
+                    e.player.teleport(Yesod.multiverseCore.mvWorldManager.getMVWorld(e.player.world).spawnLocation)
                 }
             }
         }

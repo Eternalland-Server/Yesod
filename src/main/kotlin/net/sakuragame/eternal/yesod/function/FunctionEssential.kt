@@ -1,16 +1,18 @@
 package net.sakuragame.eternal.yesod.function
 
-import net.minecraft.server.v1_12_R1.Container
 import net.sakuragame.eternal.yesod.Yesod
+import net.sakuragame.eternal.yesod.Yesod.bypass
+import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.event.block.SignChangeEvent
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.event.server.TabCompleteEvent
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.BlockStateMeta
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionEffectType
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.chat.colored
@@ -54,6 +56,19 @@ object FunctionEssential {
     }
 
     /**
+     * 伤害保护.
+     */
+    @SubscribeEvent
+    fun e(e: EntityDamageEvent) {
+        if (Yesod.conf.getBoolean("allow-cancel-damage") && e.entity is Player) {
+            // temp code.
+            if (e.entity.world.name == "world") {
+                e.isCancelled = true
+            }
+        }
+    }
+
+    /**
      * 允许玩家喝下带有饱和效果的药水
      */
     @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -65,9 +80,5 @@ object FunctionEssential {
                 }
             }
         }
-    }
-
-    fun isContainer(item: ItemStack): Boolean {
-        return item.itemMeta is BlockStateMeta && (item.itemMeta as BlockStateMeta).blockState is Container
     }
 }
