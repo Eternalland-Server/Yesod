@@ -14,10 +14,11 @@ import taboolib.common.platform.command.command
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.BukkitCommand
 
+@Suppress("SpellCheckingInspection")
 object FunctionCommand {
 
     init {
-        command("fly"){
+        command("fly") {
             execute<Player> { player, _, _ ->
                 if (!player.hasPermission("yesod.fly")) {
                     player.sendMessage(SpigotConfig.unknownCommandMessage)
@@ -45,6 +46,27 @@ object FunctionCommand {
                 }
             }
         }
+        command("tppos") {
+            dynamic {
+                execute<Player> { player, _, argument ->
+                    if (!player.hasPermission("yesod.tppos")) {
+                        player.sendMessage(SpigotConfig.unknownCommandMessage)
+                        return@execute
+                    }
+                    val loc = argument.split(";")
+                    if (loc.size < 3) {
+                        player.sendMessage("您输入的不是一个合法的值.")
+                        return@execute
+                    }
+                    player.teleport(player.location.also {
+                        it.x = loc[0].toDouble()
+                        it.y = loc[1].toDouble()
+                        it.z = loc[2].toDouble()
+                    })
+                    player.sendMessage("您传送到了坐标: ${player.location}")
+                }
+            }
+        }
     }
 
     @Awake(LifeCycle.ACTIVE)
@@ -56,17 +78,18 @@ object FunctionCommand {
                 }
             }
         }
-    }
 
-    @SubscribeEvent
-    fun e(e: PlayerCommandPreprocessEvent) {
-        if (e.player.isOp) {
-            return
-        }
-        val v = e.message.split(" ")[0].toLowerCase().substring(1)
-        if (v.contains(":") || v in Yesod.conf.getStringList("block-command-name")) {
-            e.isCancelled = true
-            e.player.sendMessage(SpigotConfig.unknownCommandMessage)
+
+        @SubscribeEvent
+        fun e(e: PlayerCommandPreprocessEvent) {
+            if (e.player.isOp) {
+                return
+            }
+            val v = e.message.split(" ")[0].toLowerCase().substring(1)
+            if (v.contains(":") || v in Yesod.conf.getStringList("block-command-name")) {
+                e.isCancelled = true
+                e.player.sendMessage(SpigotConfig.unknownCommandMessage)
+            }
         }
     }
 }

@@ -19,13 +19,6 @@ import taboolib.platform.util.attacker
 object FunctionWorld {
 
     @SubscribeEvent
-    fun e(e: PlayerJoinEvent) {
-        if (!e.player.hasPlayedBefore()) {
-            e.player.teleport(e.player.world.spawnLocation)
-        }
-    }
-
-    @SubscribeEvent
     fun e(e: PlayerRespawnEvent) {
         e.respawnLocation = e.respawnLocation.world!!.spawnLocation
     }
@@ -129,10 +122,9 @@ object FunctionWorld {
 
     @SubscribeEvent
     fun e(e: PlayerMoveEvent) {
-        if (e.player.world.name != "world") return
         val to = e.to!!
         if (e.from.x != to.x || e.from.y != to.y || e.from.z != to.z) {
-            if (to.y < 10 && Yesod.voidProtect && e.player.gameMode != GameMode.CREATIVE) {
+            if (to.y < 0 && Yesod.voidProtect && e.player.gameMode != GameMode.CREATIVE) {
                 e.isCancelled = true
                 // 返回大厅
                 submit {
