@@ -9,13 +9,13 @@ import org.bukkit.generator.ChunkGenerator
 import taboolib.common.platform.Plugin
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.ConfigNode
-import taboolib.module.configuration.SecuredFile
+import taboolib.module.configuration.Configuration
 import taboolib.platform.BukkitWorldGenerator
 
 object Yesod : Plugin(), BukkitWorldGenerator {
 
-    @Config(migrate = true)
-    lateinit var conf: SecuredFile
+    @Config
+    lateinit var conf: Configuration
         private set
 
     @ConfigNode("void-protect")

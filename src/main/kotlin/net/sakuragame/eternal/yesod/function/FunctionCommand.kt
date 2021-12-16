@@ -40,6 +40,10 @@ object FunctionCommand {
                         player.sendMessage("您输入的不是一个合法的值.")
                         return@execute
                     }
+                    if (speed > 1.0) {
+                        player.sendMessage("您输入的值太高了!")
+                        return@execute
+                    }
                     player.walkSpeed = speed
                     player.flySpeed = speed
                     player.sendMessage("您设置了您的速度值为: $speed")
@@ -47,23 +51,37 @@ object FunctionCommand {
             }
         }
         command("tppos") {
-            dynamic {
-                execute<Player> { player, _, argument ->
-                    if (!player.hasPermission("yesod.tppos")) {
-                        player.sendMessage(SpigotConfig.unknownCommandMessage)
-                        return@execute
+            dynamic("x") {
+                dynamic("y") {
+                    dynamic("z") {
+                        execute<Player> { sender, context, _ ->
+                            if (!sender.hasPermission("yesod.tppos")) {
+                                sender.sendMessage(SpigotConfig.unknownCommandMessage)
+                                return@execute
+                            }
+                            val x = if (context.get(0) == "~") {
+                                sender.location.x
+                            } else {
+                                context.get(0).toDoubleOrNull() ?: return@execute
+                            }
+                            val y = if (context.get(1) == "~") {
+                                sender.location.x
+                            } else {
+                                context.get(0).toDoubleOrNull() ?: return@execute
+                            }
+                            val z = if (context.get(2) == "~") {
+                                sender.location.x
+                            } else {
+                                context.get(0).toDoubleOrNull() ?: return@execute
+                            }
+                            sender.teleport(sender.location.also {
+                                it.x = x
+                                it.y = y
+                                it.z = z
+                            })
+                            sender.sendMessage("您传送到了坐标: ${sender.location.toVector()}")
+                        }
                     }
-                    val loc = argument.split(";")
-                    if (loc.size < 3) {
-                        player.sendMessage("您输入的不是一个合法的值.")
-                        return@execute
-                    }
-                    player.teleport(player.location.also {
-                        it.x = loc[0].toDouble()
-                        it.y = loc[1].toDouble()
-                        it.z = loc[2].toDouble()
-                    })
-                    player.sendMessage("您传送到了坐标: ${player.location}")
                 }
             }
         }

@@ -2,22 +2,17 @@ package net.sakuragame.eternal.yesod.function
 
 import net.sakuragame.eternal.yesod.Yesod
 import net.sakuragame.eternal.yesod.Yesod.bypass
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.FishHook
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.block.Action
-import org.bukkit.event.entity.EntityDamageByEntityEvent
-import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.inventory.*
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.common.util.random
-import taboolib.platform.util.isNotAir
 
 object FunctionPatch {
 
@@ -83,28 +78,6 @@ object FunctionPatch {
         }
         if (e.entity is Arrow && (e.entity as Arrow).pickupStatus != Arrow.PickupStatus.ALLOWED) {
             e.entity.remove()
-        }
-    }
-
-    /**
-     * 重做荆棘伤害
-     */
-    @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    fun e(e: EntityDamageByEntityEvent) {
-        if (e.cause == EntityDamageEvent.DamageCause.THORNS && e.damager is LivingEntity && Yesod.thornOverride) {
-            e.damage = 1.0
-            getArmor(e.damager as LivingEntity)
-                .filter { it.isNotAir() }
-                .forEach { item ->
-                    val level = item!!.getEnchantmentLevel(Enchantment.THORNS)
-                    if (level <= 5) {
-                        if (Math.random() <= level * 0.2) {
-                            e.damage += random(1, 4)
-                        }
-                    } else {
-                        e.damage += (level - 5)
-                    }
-                }
         }
     }
 

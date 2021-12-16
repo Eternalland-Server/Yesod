@@ -7,14 +7,16 @@ import org.bukkit.Material
 import org.bukkit.entity.Hanging
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.block.*
-import org.bukkit.event.entity.*
+import org.bukkit.event.entity.EntityBreedEvent
+import org.bukkit.event.entity.EntityChangeBlockEvent
+import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.entity.EntityInteractEvent
 import org.bukkit.event.hanging.HangingBreakByEntityEvent
 import org.bukkit.event.hanging.HangingBreakEvent
 import org.bukkit.event.player.*
 import org.bukkit.util.Vector
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
-import taboolib.platform.util.attacker
 
 object FunctionWorld {
 
@@ -75,14 +77,6 @@ object FunctionWorld {
     @SubscribeEvent
     fun e(e: PlayerInteractEntityEvent) {
         if ("HANGING_BREAK" in Yesod.blockFeatures && !e.player.bypass(true) && e.rightClicked is Hanging) {
-            e.isCancelled = true
-        }
-    }
-
-    @SubscribeEvent
-    fun e(e: EntityDamageByEntityEvent) {
-        val player = e.attacker ?: return
-        if ("HANGING_BREAK" in Yesod.blockFeatures && !player.bypass(true) && e.entity is Hanging) {
             e.isCancelled = true
         }
     }

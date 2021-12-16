@@ -1,18 +1,12 @@
 package net.sakuragame.eternal.yesod.function
 
 import net.sakuragame.eternal.yesod.Yesod
-import net.sakuragame.eternal.yesod.Yesod.bypass
-import org.bukkit.Bukkit
-import org.bukkit.entity.Player
 import org.bukkit.event.block.SignChangeEvent
-import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionEffectType
-import taboolib.common.LifeCycle
-import taboolib.common.platform.Awake
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.chat.colored
@@ -52,19 +46,6 @@ object FunctionEssential {
             e.quitMessage = null
         } else {
             e.quitMessage = message.toString().colored().replace("@p", e.player.name)
-        }
-    }
-
-    /**
-     * 伤害保护.
-     */
-    @SubscribeEvent
-    fun e(e: EntityDamageEvent) {
-        if (Yesod.conf.getBoolean("allow-cancel-damage") && e.entity is Player) {
-            // temp code.
-            if (e.entity.world.name == "world") {
-                e.isCancelled = true
-            }
         }
     }
 
