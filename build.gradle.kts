@@ -20,6 +20,7 @@ taboolib {
     install("module-chat")
     install("module-nms", "module-nms-util")
     install("platform-bukkit")
+    install("expansion-command-helper")
     classifier = null
     version = "6.0.6-14"
 }
@@ -29,7 +30,6 @@ repositories {
 }
 
 dependencies {
-    compileOnly("ink.ptms:nms-all:1.0.0")
     compileOnly("ink.ptms.core:v11200:11200:all@jar")
     compileOnly(kotlin("stdlib"))
     compileOnly(fileTree("libs"))

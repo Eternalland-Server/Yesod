@@ -2,6 +2,7 @@ package net.sakuragame.eternal.yesod
 
 import com.onarandombox.MultiverseCore.MultiverseCore
 import org.bukkit.Bukkit
+import org.bukkit.Difficulty
 import org.bukkit.GameMode
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
@@ -63,11 +64,22 @@ object Yesod : Plugin(), BukkitWorldGenerator {
     }
 
     override fun onActive() {
-        Bukkit.getWorlds().forEach {
-            it.setGameRuleValue("announceAdvancements", "false")
-            it.setGameRuleValue("keepInventory", "true")
-            it.setGameRuleValue("doDaylightCycle", "false")
-            it.setGameRuleValue("showDeathMessages", "false")
+        Bukkit.getWorlds().forEach { world ->
+            world.pvp = false
+            world.difficulty = Difficulty.HARD
+            world.animalSpawnLimit = 0
+            world.ambientSpawnLimit = 0
+            world.waterAnimalSpawnLimit = 0
+            world.monsterSpawnLimit = 0
+            world.fullTime = 2400000L
+            world.setGameRuleValue("doFireTick", "false")
+            world.setGameRuleValue("doMobSpawning", "false")
+            world.setGameRuleValue("doMobLoot", "false")
+            world.setGameRuleValue("mobGriefing", "false")
+            world.setGameRuleValue("doEntityDrops", "false")
+            world.setGameRuleValue("doWeatherCycle", "false")
+            world.setGameRuleValue("doDaylightCycle", "false")
+            world.setGameRuleValue("keepInventory", "true")
         }
     }
 }
