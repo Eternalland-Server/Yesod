@@ -21,6 +21,22 @@ import taboolib.common.platform.function.submit
 object FunctionWorld {
 
     @SubscribeEvent
+    fun e(e: BlockPlaceEvent) {
+        if (e.player.bypass()) {
+            return
+        }
+        e.isCancelled = true
+    }
+
+    @SubscribeEvent
+    fun e(e: BlockBreakEvent) {
+        if (e.player.hasPermission("admin")) {
+            return
+        }
+        e.isCancelled = true
+    }
+
+    @SubscribeEvent
     fun e(e: PlayerRespawnEvent) {
         e.respawnLocation = e.respawnLocation.world!!.spawnLocation
     }

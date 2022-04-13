@@ -28,7 +28,7 @@ object FunctionEssential {
      */
     @SubscribeEvent
     fun e(e: PlayerJoinEvent) {
-        val message = Yesod.conf.get("join-message")
+        val message = Yesod.conf["join-message"]
         if (message == null || message.toString().isEmpty()) {
             e.joinMessage = null
         } else {
@@ -41,7 +41,7 @@ object FunctionEssential {
      */
     @SubscribeEvent
     fun e(e: PlayerQuitEvent) {
-        val message = Yesod.conf.get("quit-message")
+        val message = Yesod.conf["quit-message"]
         if (message == null || message.toString().isEmpty()) {
             e.quitMessage = null
         } else {

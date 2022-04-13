@@ -11,7 +11,8 @@ taboolib {
         }
         load("STARTUP")
         contributors {
-            name("咸蛋")
+            name("坏黑")
+            name("闲蛋")
         }
     }
     install("common")
@@ -22,15 +23,23 @@ taboolib {
     install("platform-bukkit")
     install("expansion-command-helper")
     classifier = null
-    version = "6.0.6-14"
+    version = "6.0.7-50"
 }
 
 repositories {
+    maven {
+        credentials {
+            username = "a5phyxia"
+            password = "zxzbc13456"
+        }
+        url = uri("https://maven.ycraft.cn/repository/maven-snapshots/")
+    }
     mavenCentral()
 }
 
 dependencies {
-    compileOnly("ink.ptms.core:v11200:11200:all@jar")
+    compileOnly("net.sakuragame:DataManager-Bukkit-API:1.3.2-SNAPSHOT@jar")
+    compileOnly("ink.ptms.core:v11200:11200")
     compileOnly(kotlin("stdlib"))
     compileOnly(fileTree("libs"))
 }

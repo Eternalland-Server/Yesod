@@ -1,1 +1,3 @@
+command-illegal-arguments: "&c[System] &7非法的参数."
+command-unknown-player: "&c[System] &7玩家不存在."
 command-received-item-by-admin: "&c[System] &7您收到了来自管理员的礼物: {0} x {1}"

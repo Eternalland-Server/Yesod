@@ -72,6 +72,8 @@ object Yesod : Plugin(), BukkitWorldGenerator {
             world.waterAnimalSpawnLimit = 0
             world.monsterSpawnLimit = 0
             world.fullTime = 2400000L
+            @Suppress("SpellCheckingInspection")
+            world.setGameRuleValue("announceAdvancements", "false")
             world.setGameRuleValue("doFireTick", "false")
             world.setGameRuleValue("doMobSpawning", "false")
             world.setGameRuleValue("doMobLoot", "false")
