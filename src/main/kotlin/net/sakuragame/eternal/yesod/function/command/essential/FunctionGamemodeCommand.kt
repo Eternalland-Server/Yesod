@@ -1,6 +1,7 @@
-package net.sakuragame.eternal.yesod.function.command
+package net.sakuragame.eternal.yesod.function.command.essential
 
-import net.sakuragame.eternal.yesod.function.FunctionCommand
+import net.sakuragame.eternal.yesod.function.command.ICommand
+import net.sakuragame.eternal.yesod.function.command.getPlayerFromStr
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.command.CommandSender
@@ -13,9 +14,9 @@ import taboolib.module.chat.colored
  * 游戏模式.
  */
 @Suppress("SpellCheckingInspection")
-object FunctionGamemodeCommand {
+object FunctionGamemodeCommand : ICommand {
 
-    init {
+    override fun i() {
         command("gamemode", aliases = listOf("gm"), permission = "*") {
             createHelper()
             dynamic(commit = "type") {

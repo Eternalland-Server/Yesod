@@ -1,5 +1,7 @@
-package net.sakuragame.eternal.yesod.function.command
+package net.sakuragame.eternal.yesod.function.command.essential
 
+import net.sakuragame.eternal.yesod.function.command.ICommand
+import net.sakuragame.eternal.yesod.function.command.getPlayerFromStr
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.command
@@ -10,9 +12,9 @@ import taboolib.module.chat.colored
  * 查看某人的背包.
  */
 @Suppress("SpellCheckingInspection")
-object FunctionInvseeCommand {
+object FunctionInvseeCommand : ICommand {
 
-    init {
+    override fun i() {
         command("invsee", permission = "*") {
             dynamic(commit = "player") {
                 suggestion<Player> { _, _ ->

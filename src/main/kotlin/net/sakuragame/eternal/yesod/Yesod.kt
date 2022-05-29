@@ -7,12 +7,20 @@ import org.bukkit.GameMode
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.generator.ChunkGenerator
+import taboolib.common.env.DependencyScope
+import taboolib.common.env.RuntimeDependencies
+import taboolib.common.env.RuntimeDependency
 import taboolib.common.platform.Plugin
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.ConfigNode
 import taboolib.module.configuration.Configuration
+import taboolib.platform.BukkitPlugin
 import taboolib.platform.BukkitWorldGenerator
 
+@RuntimeDependencies(
+    RuntimeDependency(value = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"),
+    RuntimeDependency(value = "org.reflections:reflections:0.10.2")
+)
 object Yesod : Plugin(), BukkitWorldGenerator {
 
     @Config
@@ -39,10 +47,6 @@ object Yesod : Plugin(), BukkitWorldGenerator {
     lateinit var blockInteract: List<String>
         private set
 
-    @ConfigNode("thorn-override")
-    var thornOverride = false
-        private set
-
     @ConfigNode("block-features")
     lateinit var blockFeatures: List<String>
         private set
@@ -51,12 +55,16 @@ object Yesod : Plugin(), BukkitWorldGenerator {
     lateinit var blockTeleport: List<String>
         private set
 
+    val plugin by lazy {
+        BukkitPlugin.getInstance()
+    }
+
     val multiverseCore by lazy {
         Bukkit.getServer().pluginManager.getPlugin("Multiverse-Core") as MultiverseCore
     }
 
     fun Entity.bypass(hard: Boolean = false): Boolean {
-        return this !is Player || isOp && gameMode == GameMode.CREATIVE && (!hard || isSneaking)
+        return this !is Player || hasPermission("admin") && gameMode == GameMode.CREATIVE && (!hard || isSneaking)
     }
 
     override fun getDefaultWorldGenerator(worldName: String, name: String?): ChunkGenerator {

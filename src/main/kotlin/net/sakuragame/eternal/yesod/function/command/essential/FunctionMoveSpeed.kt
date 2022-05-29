@@ -1,6 +1,6 @@
-package net.sakuragame.eternal.yesod.function.command
+package net.sakuragame.eternal.yesod.function.command.essential
 
-import net.sakuragame.eternal.yesod.function.FunctionCommand
+import net.sakuragame.eternal.yesod.function.command.ICommand
 import org.bukkit.entity.Player
 import org.spigotmc.SpigotConfig
 import taboolib.common.platform.command.command
@@ -11,9 +11,9 @@ import taboolib.platform.util.sendLang
 /**
  * 移动速度.
  */
-object FunctionMoveSpeed {
+object FunctionMoveSpeed : ICommand {
 
-    init {
+    override fun i() {
         command("speed", permission = "*") {
             createHelper()
             dynamic {

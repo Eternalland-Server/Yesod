@@ -14,6 +14,7 @@ import java.util.*
  * @author kirraObj
  * @since 2021/11/10 20:33
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class YesodGenerator : ChunkGenerator() {
 
     override fun getDefaultPopulators(world: World): List<BlockPopulator> {

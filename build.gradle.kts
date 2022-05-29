@@ -23,7 +23,7 @@ taboolib {
     install("platform-bukkit")
     install("expansion-command-helper")
     classifier = null
-    version = "6.0.7-50"
+    version = "6.0.7-64"
 }
 
 repositories {
@@ -38,6 +38,9 @@ repositories {
 }
 
 dependencies {
+    compileOnly("net.sakuragame.eternal:JustMessage:1.0.4-SNAPSHOT@jar")
+    compileOnly("org.reflections:reflections:0.10.2")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     compileOnly("net.sakuragame:DataManager-Bukkit-API:1.3.2-SNAPSHOT@jar")
     compileOnly("ink.ptms.core:v11200:11200")
     compileOnly(kotlin("stdlib"))
@@ -51,4 +54,14 @@ tasks.withType<JavaCompile> {
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (requested.group == "org.jetbrains.kotlin") {
+                useVersion("1.5.10")
+            }
+        }
+    }
 }

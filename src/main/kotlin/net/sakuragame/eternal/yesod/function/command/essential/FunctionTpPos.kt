@@ -1,7 +1,7 @@
-package net.sakuragame.eternal.yesod.function.command
+package net.sakuragame.eternal.yesod.function.command.essential
 
-import net.sakuragame.eternal.yesod.function.FunctionCommand
-import org.bukkit.Bukkit
+import net.sakuragame.eternal.yesod.function.command.ICommand
+import net.sakuragame.eternal.yesod.function.command.getPlayerFromStr
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.command
@@ -12,11 +12,10 @@ import taboolib.platform.util.sendLang
 /**
  * 传送到某个坐标.
  */
-object FunctionTpPos {
+object FunctionTpPos : ICommand {
 
-    init {
-        @Suppress("SpellCheckingInspection")
-        command("tppos", permission = "*") {
+    override fun i() {
+        @Suppress("SpellCheckingInspection") command("tppos", permission = "*") {
             createHelper()
             dynamic("x") {
                 dynamic("y") {

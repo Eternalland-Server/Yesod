@@ -95,8 +95,6 @@ block-features:
   - BLOCK_EXPLODE
   # 入侵
   - RAID
-  # 禁止生长
-  - GROW
   # 禁止蔓延
   - SPREAD
 # 阻止传送类型

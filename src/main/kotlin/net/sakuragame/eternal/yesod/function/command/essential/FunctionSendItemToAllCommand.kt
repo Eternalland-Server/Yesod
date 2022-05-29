@@ -1,5 +1,6 @@
-package net.sakuragame.eternal.yesod.function.command
+package net.sakuragame.eternal.yesod.function.command.essential
 
+import net.sakuragame.eternal.yesod.function.command.ICommand
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.command
@@ -11,9 +12,9 @@ import taboolib.platform.util.sendLang
 /**
  * 将手上物品发给全服所有玩家.
  */
-object FunctionSendItemToAllCommand {
+object FunctionSendItemToAllCommand : ICommand {
 
-    init {
+    override fun i() {
         command("sendItemToAll", permission = "*") {
             execute<Player> { player, _, _ ->
                 val item = player.inventory.itemInMainHand

@@ -1,8 +1,12 @@
-package net.sakuragame.eternal.yesod.function.command
+package net.sakuragame.eternal.yesod.function.command.essential
 
+import net.sakuragame.eternal.yesod.function.command.ICommand
+import net.sakuragame.eternal.yesod.function.command.getPlayerFromStr
 import net.sakuragame.eternal.yesod.mode
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
 import taboolib.common.platform.command.command
 import taboolib.expansion.createHelper
 import taboolib.module.chat.colored
@@ -10,9 +14,9 @@ import taboolib.module.chat.colored
 /**
  * 飞行.
  */
-object FunctionFlyCommand {
+object FunctionFlyCommand : ICommand {
 
-    init {
+    override fun i() {
         command("fly", permission = "*") {
             createHelper()
             execute<Player> { player, _, _ ->

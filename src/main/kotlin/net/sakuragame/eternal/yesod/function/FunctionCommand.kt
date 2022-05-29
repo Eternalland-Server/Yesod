@@ -1,11 +1,14 @@
 package net.sakuragame.eternal.yesod.function
 
 import net.sakuragame.eternal.yesod.Yesod
+import net.sakuragame.eternal.yesod.function.command.ICommand
 import net.sakuragame.serversystems.manage.client.api.ClientManagerAPI
 import org.bukkit.command.PluginCommand
 import org.bukkit.event.player.PlayerCommandPreprocessEvent
+import org.reflections.Reflections
 import org.spigotmc.SpigotConfig
 import taboolib.common.LifeCycle
+import taboolib.common.io.getInstance
 import taboolib.common.io.taboolibId
 import taboolib.common.platform.Awake
 import taboolib.common.platform.PlatformFactory
@@ -15,6 +18,15 @@ import taboolib.platform.BukkitCommand
 
 @Suppress("SpellCheckingInspection")
 object FunctionCommand {
+
+    @Awake(LifeCycle.ENABLE)
+    fun i() {
+        val ref = Reflections("net.sakuragame.eternal.yesod.function.command")
+        val classes = ref.getSubTypesOf(ICommand::class.java)
+        classes.mapNotNull { it.getInstance(false)?.get() }.forEach {
+            it.i()
+        }
+    }
 
     @Awake(LifeCycle.ACTIVE)
     fun e() {
@@ -28,7 +40,6 @@ object FunctionCommand {
                 }
             }
         }
-
         @SubscribeEvent
         fun e(e: PlayerCommandPreprocessEvent) {
             if (e.player.isOp) {
