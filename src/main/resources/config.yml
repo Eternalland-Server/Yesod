@@ -8,6 +8,8 @@ void-protect: true
 allow-craft: true
 # 启用配方补全
 allow-craft-display: true
+# 禁用方块物理
+disable-block-physical: true
 # 禁止命令的路径
 block-command-path:
   - org.spigotmc

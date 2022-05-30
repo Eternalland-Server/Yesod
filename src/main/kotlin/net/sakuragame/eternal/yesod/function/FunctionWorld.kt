@@ -30,10 +30,31 @@ object FunctionWorld {
 
     @SubscribeEvent
     fun e(e: BlockBreakEvent) {
-        if (e.player.hasPermission("admin")) {
+        if (e.player.bypass()) {
             return
         }
         e.isCancelled = true
+    }
+
+    @SubscribeEvent
+    fun e(e: BlockPhysicsEvent) {
+        if (Yesod.disableBlockPhysical) {
+            e.isCancelled = true
+        }
+    }
+
+    @SubscribeEvent
+    fun e(e: BlockSpreadEvent) {
+        if (Yesod.disableBlockPhysical) {
+            e.isCancelled = true
+        }
+    }
+
+    @SubscribeEvent
+    fun e(e: BlockFromToEvent) {
+        if (Yesod.disableBlockPhysical) {
+            e.isCancelled = true
+        }
     }
 
     @SubscribeEvent
@@ -113,13 +134,6 @@ object FunctionWorld {
     fun e(e: BlockExplodeEvent) {
         if ("BLOCK_EXPLODE" in Yesod.blockFeatures) {
             e.blockList().clear()
-        }
-    }
-
-    @SubscribeEvent
-    fun e(e: BlockSpreadEvent) {
-        if ("SPREAD" in Yesod.blockFeatures) {
-            e.isCancelled = true
         }
     }
 

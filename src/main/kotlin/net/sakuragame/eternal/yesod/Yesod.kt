@@ -39,6 +39,10 @@ object Yesod : Plugin(), BukkitWorldGenerator {
     var allowCraftDisplay = false
         private set
 
+    @ConfigNode("disable-block-physical")
+    var disableBlockPhysical = true
+        private set
+
     @ConfigNode("block-inventory")
     lateinit var blockInventory: List<String>
         private set
