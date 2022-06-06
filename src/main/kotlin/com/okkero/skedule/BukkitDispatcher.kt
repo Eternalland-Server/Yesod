@@ -11,7 +11,7 @@ private val bukkitScheduler
     get() = Bukkit.getScheduler()
 
 
-@UseExperimental(InternalCoroutinesApi::class)
+@OptIn(InternalCoroutinesApi::class)
 class BukkitDispatcher(val plugin: JavaPlugin, val async: Boolean = false) : CoroutineDispatcher(), Delay {
 
     private val runTaskLater: (Plugin, Runnable, Long) -> BukkitTask =
@@ -25,7 +25,7 @@ class BukkitDispatcher(val plugin: JavaPlugin, val async: Boolean = false) : Cor
         else
             bukkitScheduler::runTask
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
         val task = runTaskLater(
             plugin,

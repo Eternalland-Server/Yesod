@@ -29,6 +29,11 @@ object FunctionWorld {
     }
 
     @SubscribeEvent
+    fun e(e: PlayerFishEvent) {
+        e.isCancelled = true
+    }
+
+    @SubscribeEvent
     fun e(e: BlockBreakEvent) {
         if (e.player.bypass()) {
             return
@@ -134,13 +139,6 @@ object FunctionWorld {
     fun e(e: BlockExplodeEvent) {
         if ("BLOCK_EXPLODE" in Yesod.blockFeatures) {
             e.blockList().clear()
-        }
-    }
-
-    @SubscribeEvent
-    fun e(e: BlockGrowEvent) {
-        if ("GROW" in Yesod.blockFeatures) {
-            e.isCancelled = true
         }
     }
 
