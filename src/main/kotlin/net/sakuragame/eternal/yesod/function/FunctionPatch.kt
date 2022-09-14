@@ -2,6 +2,7 @@ package net.sakuragame.eternal.yesod.function
 
 import net.sakuragame.eternal.yesod.Yesod
 import net.sakuragame.eternal.yesod.Yesod.bypass
+import org.bukkit.Bukkit
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.FishHook
@@ -32,6 +33,7 @@ object FunctionPatch {
     @SubscribeEvent(priority = EventPriority.LOWEST, ignoreCancelled = true)
     fun e(e: InventoryClickEvent) {
         if (!Yesod.allowCraft) {
+            Bukkit.broadcastMessage("reached 1")
             e.isCancelled = e.clickedInventory?.type == InventoryType.CRAFTING
         }
     }

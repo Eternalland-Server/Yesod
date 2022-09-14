@@ -7,7 +7,6 @@ import org.bukkit.GameMode
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.generator.ChunkGenerator
-import taboolib.common.env.DependencyScope
 import taboolib.common.env.RuntimeDependencies
 import taboolib.common.env.RuntimeDependency
 import taboolib.common.platform.Plugin
@@ -84,7 +83,6 @@ object Yesod : Plugin(), BukkitWorldGenerator {
             world.waterAnimalSpawnLimit = 0
             world.monsterSpawnLimit = 0
             world.fullTime = 2400000L
-            @Suppress("SpellCheckingInspection")
             world.setGameRuleValue("announceAdvancements", "false")
             world.setGameRuleValue("doFireTick", "false")
             world.setGameRuleValue("doMobSpawning", "false")
