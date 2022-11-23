@@ -38,7 +38,7 @@
     + 禁止生长
     + 禁止蔓延
 
-> Powered by TabooLib
+> Powered by TabooLib 6
 
 ## 版本更新
 
